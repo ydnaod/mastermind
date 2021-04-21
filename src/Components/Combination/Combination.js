@@ -3,9 +3,14 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { CombinationColumn } from '../CombinationColumn/CombinationColumn'
 
 export function Combination() {
-  return (
-    <Fragment>
-      <CombinationColumn />
-    </Fragment>
-  );
+    return (
+        <Fragment>
+            <div className="Combination">
+                <CombinationColumn />
+                <CombinationColumn />
+                <CombinationColumn />
+                <CombinationColumn />
+            </div>
+        </Fragment>
+    );
 }

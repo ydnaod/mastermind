@@ -26,38 +26,10 @@ export function CombinationColumn() {
         }
     }
 
-
-    // const numbers = [
-    //     {
-    //         number: 0
-    //     },
-    //     {
-    //         number: 1
-    //     },
-    //     {
-    //         number: 2
-    //     },
-    //     {
-    //         number: 3
-    //     },
-    //     {
-    //         number: 4
-    //     },
-    //     {
-    //         number: 5
-    //     },
-    //     {
-    //         number: 6
-    //     },
-    //     {
-    //         number: 7
-    //     },
-    // ]
-
     const variants = {
         enter: direction => {
           return {
-            y: direction > 0 ? 100 : -100,
+            y: direction > 0 ? 50 : -50,
             opacity: 0
           };
         },
@@ -69,7 +41,7 @@ export function CombinationColumn() {
         exit: direction => {
           return {
             zIndex: -1,
-            y: direction < 0 ? 100 : -100,
+            y: direction < 0 ? 50 : -50,
             opacity: 0
           };
         }
