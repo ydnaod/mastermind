@@ -3,7 +3,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { Combination } from '../Combination/Combination'
 import OpenButton from '../OpenButton/OpenButton';
 
-export function Vault({ secretCode }) {
+export function Vault({ secretCode, addToHistory }) {
 
     const [[col0, col1, col2, col3], setCurrentCombination] = useState([0, 0, 0, 0])
 
@@ -14,14 +14,16 @@ export function Vault({ secretCode }) {
     }
 
     const submitGuess = () => {
+        const tempArray = [col0, col1, col2, col3];
+        const result = tempArray.join("");
         if (checkVictory()) {
-            console.log("you win!")
+            addToHistory(`You guessed: ${result}. You win!`)
         } else if (checkIfNumbersAreInPlace()) {
-            console.log("Number in the right place")
+            addToHistory(`You guessed: ${result}. A number is correct and is in the right place`)
         } else if (checkIfAnyNumbersAreCorrect()) {
-            console.log("A number is correct")
+            addToHistory(`You guessed: ${result}. A number is correct`)
         } else {
-            console.log('sorry')
+            addToHistory(`You guessed: ${result}. Sorry`)
         }
     }
 
@@ -53,7 +55,6 @@ export function Vault({ secretCode }) {
             } else {
                 dict[number]++;
             }
-            console.log(dict)
         }
         for (let i = 0; i < secretCode.length; i++) {
             if (dict.hasOwnProperty(tempArray[i])) {
@@ -62,10 +63,6 @@ export function Vault({ secretCode }) {
         }
         return false
     }
-
-    useEffect(() => {
-
-    }, [])
 
     return (
         <Fragment>
