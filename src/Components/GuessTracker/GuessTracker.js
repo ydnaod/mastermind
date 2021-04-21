@@ -1,12 +1,10 @@
 import './GuessTracker.css';
 import React, { useState, useEffect, Fragment } from 'react';
 
-function GuessTracker() {
+export function GuessTracker({guesses}) {
   return (
     <Fragment>
-      
+      <h1>Guesses Remaining: {guesses}</h1>
     </Fragment>
   );
 }
-
-export default GuessTracker;

@@ -1,11 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
-import React, { useState, useEffect, Fragment, useRef } from 'react';
+import { Game } from './Components/Game/Game'
+import React, { useState, useEffect, Fragment } from 'react';
 
 function App() {
   return (
     <Fragment>
-      
+      <div className="App">
+        <Game />
+      </div>
     </Fragment>
   );
 }

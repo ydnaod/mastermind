@@ -1,12 +1,15 @@
 import './UpArrow.css';
 import React, { useState, useEffect, Fragment } from 'react';
 
-function UpArrow() {
+export function UpArrow({handleIncrease}) {
+
+    const handleClick = () => {
+        handleIncrease();
+    }
+
   return (
     <Fragment>
-      
+      <h1 className="upArrow" onClick={handleClick}>^</h1>
     </Fragment>
   );
 }
-
-export default UpArrow;
