@@ -6,7 +6,7 @@ import { DownArrow } from './DownArrow/DownArrow';
 import { PossibleNumbers } from '../../util/PossibleNumbers';
 import { motion, AnimatePresence } from "framer-motion"
 
-export function CombinationColumn() {
+export function CombinationColumn({ colIndex, setValueFromColumn }) {
 
     const [[index, dir], setIndex] = useState([0, 0]);
 
@@ -66,7 +66,7 @@ export function CombinationColumn() {
                           }}
                         className="numberToGuess">
 
-                        <NumberToGuess numberToDisplay={PossibleNumbers[index]} />
+                        <NumberToGuess colIndex={colIndex} setValueFromColumn={setValueFromColumn} numberToDisplay={PossibleNumbers[index]} />
                     </motion.div>
                 </AnimatePresence>
                 <DownArrow handleDecrease={handleDecrease} />

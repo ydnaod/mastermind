@@ -34,7 +34,7 @@ export function Game() {
     return (
         <Fragment>
             <div className="vaultDisplay">
-                <Vault />
+                <Vault secretCode={secretCode}/>
                 <GuessTracker guesses={guesses} />
             </div>
             <History />
