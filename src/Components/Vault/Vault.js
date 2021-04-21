@@ -3,7 +3,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { Combination } from '../Combination/Combination'
 import OpenButton from '../OpenButton/OpenButton';
 
-export function Vault({ secretCode, addToHistory }) {
+export function Vault({ secretCode, addToHistory, decrementGuesses }) {
 
     const [[col0, col1, col2, col3], setCurrentCombination] = useState([0, 0, 0, 0])
 
@@ -14,16 +14,18 @@ export function Vault({ secretCode, addToHistory }) {
     }
 
     const submitGuess = () => {
-        const tempArray = [col0, col1, col2, col3];
-        const result = tempArray.join("");
-        if (checkVictory()) {
-            addToHistory(`You guessed: ${result}. You win!`)
-        } else if (checkIfNumbersAreInPlace()) {
-            addToHistory(`You guessed: ${result}. A number is correct and is in the right place`)
-        } else if (checkIfAnyNumbersAreCorrect()) {
-            addToHistory(`You guessed: ${result}. A number is correct`)
-        } else {
-            addToHistory(`You guessed: ${result}. Sorry`)
+        if (decrementGuesses()) {
+            const tempArray = [col0, col1, col2, col3];
+            const result = tempArray.join("");
+            if (checkVictory()) {
+                addToHistory(`You guessed: ${result}. You win!`)
+            } else if (checkIfNumbersAreInPlace()) {
+                addToHistory(`You guessed: ${result}. A number is correct and is in the right place`)
+            } else if (checkIfAnyNumbersAreCorrect()) {
+                addToHistory(`You guessed: ${result}. A number is correct`)
+            } else {
+                addToHistory(`You guessed: ${result}. Sorry`)
+            }
         }
     }
 
@@ -66,8 +68,8 @@ export function Vault({ secretCode, addToHistory }) {
 
     return (
         <Fragment>
-            <Combination setValueFromColumn={setValueFromColumn}/>
-            <OpenButton submitGuess={submitGuess}/>
+            <Combination setValueFromColumn={setValueFromColumn} />
+            <OpenButton submitGuess={submitGuess} />
         </Fragment>
     );
 }

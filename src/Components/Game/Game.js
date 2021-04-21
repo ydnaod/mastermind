@@ -31,9 +31,28 @@ export function Game() {
         }
     }
 
+    const decrementGuesses = () => {
+        const guessTemp = guesses;
+        if (checkGuessesRemaining(guessTemp)) {
+            setGuesses(() => guesses - 1);
+            return true;
+        } else {
+            addToHistory("Game over!")
+            return false
+        }
+    }
+
+    const checkGuessesRemaining = (guessesRemaining) => {
+        if (guessesRemaining <= 0) {
+            return false;
+        } else {
+            return true
+        }
+    }
+
     const addToHistory = (message) => {
         const tempArray = history;
-        console.log(tempArray)
+        console.log(message)
         setHistory(() => [...tempArray, message]);
     }
 
@@ -45,7 +64,8 @@ export function Game() {
         <Fragment>
             <div className="vaultDisplay">
                 <Vault secretCode={secretCode}
-                    addToHistory={addToHistory}/>
+                    addToHistory={addToHistory}
+                    decrementGuesses={decrementGuesses}/>
                 <GuessTracker guesses={guesses} />
             </div>
             {history.map((sentence,index) => {
