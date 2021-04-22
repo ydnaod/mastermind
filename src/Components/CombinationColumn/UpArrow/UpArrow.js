@@ -1,12 +1,20 @@
 import './UpArrow.css';
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import UpArrowImage from '../../../images/UpArrow.png'
+import useSound from 'use-sound';
+import Click1Sfx from '../../../sfx/Click1.mp3'
 
 export function UpArrow({handleIncrease}) {
 
     const handleClick = () => {
+        playActive();
         handleIncrease();
     }
+
+    const [playActive] = useSound(
+        Click1Sfx,
+        { volume: 0.25 }
+      );
 
   return (
     <Fragment>
