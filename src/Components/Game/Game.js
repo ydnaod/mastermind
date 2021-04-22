@@ -10,24 +10,28 @@ export function Game() {
     const [guesses, setGuesses] = useState(10);
     const [secretCode, setSecretCode] = useState();
     const [history, setHistory] = useState([]);
+    const [game, setGame] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const generateCode = async () => {
-        if (secretCode) {
-            return;
-        }
-        try {
-            const response = await fetch(`https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new`, {
-                method: 'GET'
-            });
-            const parseRes = await response.text();
-            const resultArray = parseRes.split("\n");
-            resultArray.pop();
-            for (let i = 0; i < resultArray.length; i++) {
-                resultArray[i] = parseInt(resultArray[i]);
+        if (!game && loading) {
+            console.log('this happens')
+            try {
+                const response = await fetch(`https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new`, {
+                    method: 'GET'
+                });
+                const parseRes = await response.text();
+                const resultArray = parseRes.split("\n");
+                resultArray.pop();
+                for (let i = 0; i < resultArray.length; i++) {
+                    resultArray[i] = parseInt(resultArray[i]);
+                }
+                setSecretCode(() => resultArray)
+                setGame(() => true)
+                setLoading(() => false)
+            } catch (error) {
+                console.error(error.message)
             }
-            setSecretCode(resultArray)
-        } catch (error) {
-            console.error(error.message)
         }
     }
 
@@ -37,6 +41,10 @@ export function Game() {
             setGuesses(() => guesses - 1);
             guessTemp = guesses;
             console.log(guessTemp - 1)
+            checkGuessesRemaining(guessTemp - 1)
+            if (!game) {
+                endGame();
+            }
             return true;
         } else {
             endGame();
@@ -45,11 +53,13 @@ export function Game() {
     }
 
     const endGame = () => {
+        setGame(() => false)
         addToHistory("Game over! The code was " + secretCode)
     }
 
     const checkGuessesRemaining = (guessesRemaining) => {
         if (guessesRemaining <= 0) {
+            endGame();
             return false;
         } else {
             return true
@@ -58,25 +68,39 @@ export function Game() {
 
     const addToHistory = (message) => {
         const tempArray = history;
-        let guessTemp = guesses;
         console.log(message)
         setHistory(() => [...tempArray, message]);
     }
 
+    const createNewGame = () => {
+        setLoading(() => true)
+        setGame(() => false);
+        setHistory(() => []);
+        setGuesses(() => 10);
+    }
+
     useEffect(() => {
         generateCode();
-    }, [history])
+        checkGuessesRemaining(guesses);
+    }, [guesses, game, loading])
 
     return (
         <Fragment>
             <div className="dashboard">
-                <div className="vault">
+                {
+                    !loading ? <div className="vault">
                         <Vault secretCode={secretCode}
                             addToHistory={addToHistory}
-                            decrementGuesses={decrementGuesses} />
-                </div>
+                            decrementGuesses={decrementGuesses}
+                            endGame={endGame}
+                            game={game} />
+                    </div> : <h1>Loading</h1>
+                }
                 <div className="guessTracker">
                     <GuessTracker guesses={guesses} />
+                </div>
+                <div className="newGame">
+                    <div class="button" id="newGameButton" onClick={createNewGame}>New Game</div>
                 </div>
             </div>
             <div className="history">

@@ -1,9 +1,9 @@
 import './Vault.css';
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import { Combination } from '../Combination/Combination'
 import OpenButton from '../OpenButton/OpenButton';
 
-export function Vault({ secretCode, addToHistory, decrementGuesses }) {
+export function Vault({ secretCode, addToHistory, decrementGuesses, endGame, game }) {
 
     const [[col0, col1, col2, col3], setCurrentCombination] = useState([0, 0, 0, 0])
 
@@ -14,6 +14,7 @@ export function Vault({ secretCode, addToHistory, decrementGuesses }) {
     }
 
     const submitGuess = () => {
+        if (!game) return;
         if (decrementGuesses()) {
             const tempArray = [col0, col1, col2, col3];
             const result = tempArray.join("");
@@ -24,7 +25,7 @@ export function Vault({ secretCode, addToHistory, decrementGuesses }) {
             } else if (checkIfAnyNumbersAreCorrect()) {
                 addToHistory(`You guessed: ${result}. A number is correct`)
             } else {
-                addToHistory(`You guessed: ${result}. Sorry`)
+                addToHistory(`You guessed: ${result}. No numbers are correct`)
             }
         }
     }
@@ -33,6 +34,7 @@ export function Vault({ secretCode, addToHistory, decrementGuesses }) {
         const cloneArray = JSON.stringify([col0, col1, col2, col3]);
         const cloneSecret = JSON.stringify(secretCode);
         if (cloneSecret === cloneArray) {
+            endGame();
             return true;
         }
         return false;
@@ -69,7 +71,7 @@ export function Vault({ secretCode, addToHistory, decrementGuesses }) {
     return (
         <Fragment>
             <div className="vaultContent">
-            <Combination setValueFromColumn={setValueFromColumn} />
+                <Combination setValueFromColumn={setValueFromColumn} />
             </div>
             <OpenButton submitGuess={submitGuess} />
         </Fragment>

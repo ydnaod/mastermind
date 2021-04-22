@@ -24,12 +24,28 @@
 
 .guessTracker {
     display: flex;
-    height: 20%;
+    height: 10%;
     justify-content: center;
     align-items: center;
 }
 
 .history::-webkit-scrollbar {
     display: none;
+  }
+
+  .newGame {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  #newGameButton {
+      width: 20%;
+      margin-top: 0;
+  }
+
+  .button:hover {
+      cursor: pointer;
   }
   
