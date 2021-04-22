@@ -1,5 +1,6 @@
 import './UpArrow.css';
 import React, { useState, useEffect, Fragment } from 'react';
+import UpArrowImage from '../../../images/UpArrow.png'
 
 export function UpArrow({handleIncrease}) {
 
@@ -9,7 +10,7 @@ export function UpArrow({handleIncrease}) {
 
   return (
     <Fragment>
-      <h1 className="upArrow" onClick={handleClick}>^</h1>
+      <img src={UpArrowImage} className="upArrow" onClick={handleClick}/>
     </Fragment>
   );
 }

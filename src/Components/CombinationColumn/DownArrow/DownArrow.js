@@ -1,5 +1,6 @@
 import './DownArrow.css';
 import React, { useState, useEffect, Fragment } from 'react';
+import DownArrowImage from '../../../images/DownArrow.png'
 
 export function DownArrow({handleDecrease}) {
 
@@ -9,7 +10,7 @@ export function DownArrow({handleDecrease}) {
 
   return (
     <Fragment>
-      <h1 className="downArrow" onClick={handleClick}>v</h1>
+      <img src={DownArrowImage} className="downArrow" onClick={handleClick}/>
     </Fragment>
   );
 }

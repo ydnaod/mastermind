@@ -10,7 +10,7 @@ export function NumberToGuess({ colIndex, numberToDisplay, setValueFromColumn })
 
     return (
         <Fragment>
-            <h1>{numberToDisplay}</h1>
+            <h1 className="number">{numberToDisplay}</h1>
         </Fragment>
     );
 }

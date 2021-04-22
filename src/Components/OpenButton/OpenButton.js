@@ -9,7 +9,7 @@ function OpenButton({ submitGuess }) {
 
     return (
         <Fragment>
-            <button onClick={handleClick}>Open</button>
+            <div className="button" onClick={handleClick}>Guess</div>
         </Fragment>
     );
 }

@@ -68,7 +68,9 @@ export function Vault({ secretCode, addToHistory, decrementGuesses }) {
 
     return (
         <Fragment>
+            <div className="vaultContent">
             <Combination setValueFromColumn={setValueFromColumn} />
+            </div>
             <OpenButton submitGuess={submitGuess} />
         </Fragment>
     );

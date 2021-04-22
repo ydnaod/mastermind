@@ -3,7 +3,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { Vault } from '../Vault/Vault';
 import { History } from '../History/History'
 import { GuessTracker } from '../GuessTracker/GuessTracker'
-import {Hint } from '../Hint/Hint'
+import { Hint } from '../Hint/Hint'
 
 export function Game() {
 
@@ -32,14 +32,20 @@ export function Game() {
     }
 
     const decrementGuesses = () => {
-        const guessTemp = guesses;
+        let guessTemp = guesses;
         if (checkGuessesRemaining(guessTemp)) {
             setGuesses(() => guesses - 1);
+            guessTemp = guesses;
+            console.log(guessTemp - 1)
             return true;
         } else {
-            addToHistory("Game over!")
+            endGame();
             return false
         }
+    }
+
+    const endGame = () => {
+        addToHistory("Game over! The code was " + secretCode)
     }
 
     const checkGuessesRemaining = (guessesRemaining) => {
@@ -52,6 +58,7 @@ export function Game() {
 
     const addToHistory = (message) => {
         const tempArray = history;
+        let guessTemp = guesses;
         console.log(message)
         setHistory(() => [...tempArray, message]);
     }
@@ -62,15 +69,21 @@ export function Game() {
 
     return (
         <Fragment>
-            <div className="vaultDisplay">
-                <Vault secretCode={secretCode}
-                    addToHistory={addToHistory}
-                    decrementGuesses={decrementGuesses}/>
-                <GuessTracker guesses={guesses} />
+            <div className="dashboard">
+                <div className="vault">
+                        <Vault secretCode={secretCode}
+                            addToHistory={addToHistory}
+                            decrementGuesses={decrementGuesses} />
+                </div>
+                <div className="guessTracker">
+                    <GuessTracker guesses={guesses} />
+                </div>
             </div>
-            {history.map((sentence,index) => {
-                return <Hint sentence={sentence} key={index}/>
-            })}
+            <div className="history">
+                {history.map((sentence, index) => {
+                    return <Hint sentence={sentence} key={index} />
+                })}
+            </div>
         </Fragment>
     );
 }

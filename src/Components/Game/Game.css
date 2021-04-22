@@ -1,0 +1,35 @@
+.history {
+    width: 35%;
+    height: 80%;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 10px / 10px;
+    overflow-y: scroll;
+    border-color: rgb(190, 190, 190);
+    -ms-overflow-style: none; 
+    scrollbar-width: none;  
+}
+.dashboard {
+    width: 65%;
+    height: 80%;
+}
+
+.vault {
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.guessTracker {
+    display: flex;
+    height: 20%;
+    justify-content: center;
+    align-items: center;
+}
+
+.history::-webkit-scrollbar {
+    display: none;
+  }
+  

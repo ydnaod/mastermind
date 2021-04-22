@@ -1,3 +1,7 @@
 .downArrow {
-    padding-top: 1em;
+    margin-top: 3em;
+}
+
+.downArrow:hover {
+    cursor: pointer;
 }
