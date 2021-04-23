@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import DownArrowImage from '../../../images/DownArrow.png'
 import useSound from 'use-sound';
 import Click2Sfx from '../../../sfx/Click2.mp3'
+import { motion } from 'framer-motion'
 
 export function DownArrow({handleDecrease}) {
 
@@ -18,7 +19,12 @@ export function DownArrow({handleDecrease}) {
 
   return (
     <Fragment>
-      <img alt="A clickable down arrow" src={DownArrowImage} className="downArrow" onClick={handleClick}/>
+      <motion.img whileTap={{scale:.9}}
+        whileHover={{scale: 1.1}}
+        alt="A clickable down arrow"
+        src={DownArrowImage}
+        className="downArrow"
+        onClick={handleClick}/>
     </Fragment>
   );
 }

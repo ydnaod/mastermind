@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import UpArrowImage from '../../../images/UpArrow.png'
 import useSound from 'use-sound';
 import Click1Sfx from '../../../sfx/Click1.mp3'
+import { motion } from 'framer-motion'
 
 export function UpArrow({handleIncrease}) {
 
@@ -18,7 +19,7 @@ export function UpArrow({handleIncrease}) {
 
   return (
     <Fragment>
-      <img alt="A clickable up arrow" src={UpArrowImage} className="upArrow" onClick={handleClick}/>
+      <motion.img whileTap={{scale:.9}} whileHover={{scale: 1.1}} alt="A clickable up arrow" src={UpArrowImage} className="upArrow" onClick={handleClick}/>
     </Fragment>
   );
 }

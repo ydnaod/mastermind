@@ -1,5 +1,6 @@
 import './OpenButton.css';
 import React, { Fragment } from 'react';
+import { motion } from 'framer-motion'
 
 function OpenButton({ submitGuess }) {
 
@@ -9,7 +10,14 @@ function OpenButton({ submitGuess }) {
 
     return (
         <Fragment>
-            <div className="button" onClick={handleClick}>Guess</div>
+            <motion.div whileTap={{scale:.9}}
+            whileHover={{scale:1.1}}
+            animate={{scale:1}}
+            initial={{scale:.3}}
+            className="button"
+            onClick={handleClick}>
+                Guess
+            </motion.div>
         </Fragment>
     );
 }

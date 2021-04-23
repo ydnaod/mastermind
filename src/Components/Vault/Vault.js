@@ -5,8 +5,9 @@ import OpenButton from '../OpenButton/OpenButton';
 import useSound from 'use-sound';
 import Click4Sfx from '../../sfx/Click4.mp3'
 import unlockSfx from '../../sfx/unlock.mp3'
+import { motion } from 'framer-motion'
 
-export function Vault({ secretCode, addToHistory, decrementGuesses, endGame, game }) {
+export function Vault({ secretCode, addToHistory, decrementGuesses, endGame, game, loading }) {
 
     const [[col0, col1, col2, col3], setCurrentCombination] = useState([0, 0, 0, 0])
 
@@ -32,7 +33,7 @@ export function Vault({ secretCode, addToHistory, decrementGuesses, endGame, gam
             const tempArray = [col0, col1, col2, col3];
             const result = tempArray.join("");
             if (checkVictory()) {
-                addToHistory(`You guessed: ${result}. You win!`)
+                addToHistory(`You guessed: ${result}. You cracked the code and opened the vault!`)
                 playUnlock();
             } else if (checkIfNumbersAreInPlace()) {
                 addToHistory(`You guessed: ${result}. A number is correct and is in the right place.`)
@@ -90,7 +91,7 @@ export function Vault({ secretCode, addToHistory, decrementGuesses, endGame, gam
             <div className="vaultContent">
                 <Combination setValueFromColumn={setValueFromColumn} />
             </div>
-            <OpenButton submitGuess={submitGuess} />
+            {loading ? <motion.div animate={{scale:1}} initial={{scale:.3}} className="button">Loading</motion.div> : <OpenButton submitGuess={submitGuess} />}
         </Fragment>
     );
 }

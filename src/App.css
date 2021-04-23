@@ -9,6 +9,7 @@
 
 .Game {
   width: 70%;
+  max-width: 1000px;
   height: 100%;
   display: flex;
   justify-content: center;

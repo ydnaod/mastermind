@@ -3,6 +3,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { Vault } from '../Vault/Vault';
 import { GuessTracker } from '../GuessTracker/GuessTracker'
 import { Hint } from '../Hint/Hint'
+import { motion } from 'framer-motion'
 
 export function Game() {
 
@@ -82,28 +83,45 @@ export function Game() {
 
     return (
         <Fragment>
-            <div className="dashboard">
-                {
-                    !loading ? <div className="vault">
-                        <Vault secretCode={secretCode}
-                            addToHistory={addToHistory}
-                            decrementGuesses={decrementGuesses}
-                            endGame={endGame}
-                            game={game} />
-                    </div> : <h1>Loading</h1>
-                }
-                <div className="guessTracker">
+            <motion.div className="dashboard"
+                animate={{ y: 0 }}
+                initial={{ y: 50 }}>
+
+                <motion.div className="vault"
+                    animate={{ y: 0 }}
+                    initial={{ y: 50 }}>
+                    <Vault secretCode={secretCode}
+                        addToHistory={addToHistory}
+                        decrementGuesses={decrementGuesses}
+                        endGame={endGame}
+                        game={game}
+                        loading={loading} />
+                </motion.div>
+
+                <motion.div className="guessTracker"
+                    animate={{ y: 0 }}
+                    initial={{ y: 50 }}>
                     <GuessTracker guesses={guesses} />
-                </div>
+                </motion.div>
                 <div className="newGame">
-                    <div class="button" id="newGameButton" onClick={createNewGame}>New Game</div>
+                    <motion.div whileTap={{ scale: .9 }}
+                        whileHover={{ scale: 1.1 }}
+                        animate={{ scale: 1 }}
+                        initial={{ scale: .3 }}
+                        class="button"
+                        id="newGameButton"
+                        onClick={createNewGame}>
+                            New Game
+                    </motion.div>
                 </div>
-            </div>
-            <div className="history">
+            </motion.div>
+            <motion.div className="history"
+                animate={{ y: 0 }}
+                initial={{ y: 50 }}>
                 {history.map((sentence, index) => {
                     return <Hint sentence={sentence} key={index} />
                 })}
-            </div>
+            </motion.div>
         </Fragment>
     );
 }
