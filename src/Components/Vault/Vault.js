@@ -7,7 +7,7 @@ import Click4Sfx from '../../sfx/Click4.mp3'
 import unlockSfx from '../../sfx/unlock.mp3'
 import { motion } from 'framer-motion'
 
-export function Vault({ secretCode, addToHistory, decrementGuesses, endGame, game, loading }) {
+export function Vault({ secretCode, addToHistory, decrementGuesses, endGame, game, loading, shuffle, handleShuffleEnd }) {
 
     const [[col0, col1, col2, col3], setCurrentCombination] = useState([0, 0, 0, 0])
 
@@ -89,7 +89,9 @@ export function Vault({ secretCode, addToHistory, decrementGuesses, endGame, gam
     return (
         <Fragment>
             <div className="vaultContent">
-                <Combination setValueFromColumn={setValueFromColumn} />
+                <Combination setValueFromColumn={setValueFromColumn}
+                    shuffle={shuffle}
+                    handleShuffleEnd={handleShuffleEnd}/>
             </div>
             {loading ? <motion.div animate={{scale:1}} initial={{scale:.3}} className="button">Loading</motion.div> : <OpenButton submitGuess={submitGuess} />}
         </Fragment>

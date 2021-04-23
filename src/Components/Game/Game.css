@@ -14,8 +14,12 @@
     height: 80%;
 }
 
+h4 {
+    font-weight: 400;
+}
+
 .vault {
-    height: 80%;
+    height: 65%;
     display: flex;
     justify-content: center;
     align-items: center;

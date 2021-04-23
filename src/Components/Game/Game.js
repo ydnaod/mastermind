@@ -12,6 +12,7 @@ export function Game() {
     const [history, setHistory] = useState([]);
     const [game, setGame] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [shuffle, setShuffle] = useState(false);
 
     const generateCode = async () => {
         if (!game && loading) {
@@ -52,7 +53,8 @@ export function Game() {
 
     const endGame = () => {
         setGame(() => false)
-        addToHistory("Game over! The code was " + secretCode)
+        const tempArray = secretCode.join("")
+        addToHistory("Game over! The code was " + tempArray)
     }
 
     const checkGuessesRemaining = (guessesRemaining) => {
@@ -69,7 +71,12 @@ export function Game() {
         setHistory(() => [...tempArray, message]);
     }
 
+    const handleShuffleEnd = () => {
+        setShuffle(() => false);
+    }
+
     const createNewGame = () => {
+        setShuffle(() => true);
         setLoading(() => true)
         setGame(() => false);
         setHistory(() => []);
@@ -86,7 +93,10 @@ export function Game() {
             <motion.div className="dashboard"
                 animate={{ y: 0 }}
                 initial={{ y: 50 }}>
-
+                <div className="title">
+                    <h1>Mastermind</h1>
+                    <h4>Can you crack the code?</h4>
+                </div>
                 <motion.div className="vault"
                     animate={{ y: 0 }}
                     initial={{ y: 50 }}>
@@ -95,7 +105,9 @@ export function Game() {
                         decrementGuesses={decrementGuesses}
                         endGame={endGame}
                         game={game}
-                        loading={loading} />
+                        loading={loading}
+                        shuffle={shuffle}
+                        handleShuffleEnd={handleShuffleEnd}/>
                 </motion.div>
 
                 <motion.div className="guessTracker"
@@ -111,7 +123,7 @@ export function Game() {
                         class="button"
                         id="newGameButton"
                         onClick={createNewGame}>
-                            New Game
+                        New Game
                     </motion.div>
                 </div>
             </motion.div>
