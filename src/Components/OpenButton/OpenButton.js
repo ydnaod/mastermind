@@ -1,5 +1,5 @@
 import './OpenButton.css';
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
 
 function OpenButton({ submitGuess }) {
 

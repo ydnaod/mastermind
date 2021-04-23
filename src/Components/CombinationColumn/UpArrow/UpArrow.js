@@ -18,7 +18,7 @@ export function UpArrow({handleIncrease}) {
 
   return (
     <Fragment>
-      <img src={UpArrowImage} className="upArrow" onClick={handleClick}/>
+      <img alt="A clickable up arrow" src={UpArrowImage} className="upArrow" onClick={handleClick}/>
     </Fragment>
   );
 }

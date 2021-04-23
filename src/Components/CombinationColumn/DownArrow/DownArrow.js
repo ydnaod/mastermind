@@ -18,7 +18,7 @@ export function DownArrow({handleDecrease}) {
 
   return (
     <Fragment>
-      <img src={DownArrowImage} className="downArrow" onClick={handleClick}/>
+      <img alt="A clickable down arrow" src={DownArrowImage} className="downArrow" onClick={handleClick}/>
     </Fragment>
   );
 }

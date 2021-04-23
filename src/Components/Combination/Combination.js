@@ -1,5 +1,5 @@
 import './Combination.css';
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { CombinationColumn } from '../CombinationColumn/CombinationColumn'
 
 export function Combination({ setValueFromColumn }) {

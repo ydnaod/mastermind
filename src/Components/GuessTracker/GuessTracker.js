@@ -1,5 +1,5 @@
 import './GuessTracker.css';
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
 
 export function GuessTracker({guesses}) {
   return (

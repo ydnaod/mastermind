@@ -1,5 +1,5 @@
 import './CombinationColumn.css';
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import { UpArrow } from './UpArrow/UpArrow';
 import { NumberToGuess } from './NumberToGuess/NumberToGuess';
 import { DownArrow } from './DownArrow/DownArrow';

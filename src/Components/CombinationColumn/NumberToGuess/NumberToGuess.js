@@ -1,6 +1,5 @@
 import './NumberToGuess.css';
-import React, { useState, useEffect, Fragment } from 'react';
-import { motion, AnimatePresence } from "framer-motion"
+import React, { useEffect, Fragment } from 'react';
 
 export function NumberToGuess({ colIndex, numberToDisplay, setValueFromColumn }) {
 

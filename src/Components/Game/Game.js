@@ -1,7 +1,6 @@
 import './Game.css';
 import React, { useState, useEffect, Fragment } from 'react';
 import { Vault } from '../Vault/Vault';
-import { History } from '../History/History'
 import { GuessTracker } from '../GuessTracker/GuessTracker'
 import { Hint } from '../Hint/Hint'
 
@@ -15,7 +14,6 @@ export function Game() {
 
     const generateCode = async () => {
         if (!game && loading) {
-            console.log('this happens')
             try {
                 const response = await fetch(`https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new`, {
                     method: 'GET'
@@ -40,7 +38,6 @@ export function Game() {
         if (checkGuessesRemaining(guessTemp)) {
             setGuesses(() => guesses - 1);
             guessTemp = guesses;
-            console.log(guessTemp - 1)
             checkGuessesRemaining(guessTemp - 1)
             if (!game) {
                 endGame();
@@ -68,7 +65,6 @@ export function Game() {
 
     const addToHistory = (message) => {
         const tempArray = history;
-        console.log(message)
         setHistory(() => [...tempArray, message]);
     }
 
