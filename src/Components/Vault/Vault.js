@@ -7,7 +7,16 @@ import Click4Sfx from '../../sfx/Click4.mp3'
 import unlockSfx from '../../sfx/unlock.mp3'
 import { motion } from 'framer-motion'
 
-export function Vault({ secretCode, addToHistory, decrementGuesses, endGame, game, loading, shuffle, handleShuffleEnd }) {
+export function Vault({ secretCode,
+        addToHistory,
+        decrementGuesses,
+        endGame,
+        game,
+        loading,
+        shuffle,
+        handleShuffleEnd,
+        muted,
+        classicMode }) {
 
     const [[col0, col1, col2, col3], setCurrentCombination] = useState([0, 0, 0, 0])
 
@@ -29,7 +38,6 @@ export function Vault({ secretCode, addToHistory, decrementGuesses, endGame, gam
 
     const submitGuess = () => {
         if (!game) return;
-        const classic = true;
         if (decrementGuesses()) {
             const tempArray = [col0, col1, col2, col3];
             const result = tempArray.join("");
@@ -37,8 +45,8 @@ export function Vault({ secretCode, addToHistory, decrementGuesses, endGame, gam
             if (checkVictory(tempArray)) {
                 resultString += `You cracked the code and opened the vault!`;
                 addToHistory(resultString)
-                playUnlock();
-            } else if (classic && checkIfAnyNumbersAreCorrect(tempArray) > 0) {
+                !muted && playUnlock();
+            } else if (classicMode && checkIfAnyNumbersAreCorrect(tempArray) > 0) {
                 const correctButNotInPlace = checkIfAnyNumbersAreCorrectOrInPlace(tempArray);
                 const correctAndInPlace = checkIfNumbersAreInPlace(tempArray);
                 if (correctButNotInPlace == 1) {
@@ -52,19 +60,19 @@ export function Vault({ secretCode, addToHistory, decrementGuesses, endGame, gam
                     resultString += `${correctAndInPlace} numbers are correct and in the right place. `;
                 }
                 addToHistory(resultString)
-                playActive()
+                !muted && playActive();
             } else if (checkIfNumbersAreInPlace(tempArray) > 0) {
                 resultString += `A number is correct and is in the right place.`;
                 addToHistory(resultString)
-                playActive()
+                !muted && playActive();
             } else if (checkIfAnyNumbersAreCorrect(tempArray) > 0) {
                 resultString += `A number is correct.`;
                 addToHistory(resultString)
-                playActive()
+                !muted && playActive();
             } else {
                 resultString += `No numbers are correct.`;
                 addToHistory(resultString)
-                playActive()
+                !muted && playActive();
             }
         }
     }
@@ -119,9 +127,13 @@ export function Vault({ secretCode, addToHistory, decrementGuesses, endGame, gam
             <div className="vaultContent">
                 <Combination setValueFromColumn={setValueFromColumn}
                     shuffle={shuffle}
-                    handleShuffleEnd={handleShuffleEnd}/>
+                    handleShuffleEnd={handleShuffleEnd}
+                    muted={muted}/>
             </div>
-            {loading ? <motion.div animate={{scale:1}} initial={{scale:.3}} className="button">Loading</motion.div> : <OpenButton submitGuess={submitGuess} />}
+            {loading ? <motion.div animate={{scale:1}}
+                initial={{scale:.3}}
+                className="button">Loading</motion.div> : 
+                <OpenButton submitGuess={submitGuess} />}
         </Fragment>
     );
 }

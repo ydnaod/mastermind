@@ -1,18 +1,34 @@
 import React, { Fragment, useEffect, useState, useRef } from 'react'
 import './Timer.css'
+import useSound from 'use-sound';
+import clockSfx from '../../sfx/Tick1.mp3'
 
-export function Timer({ endGame, game }) {
+export function Timer({ endGame, game, muted }) {
 
-    const [remainingTime, setRemainingTime] = useState(5);
+    const [remainingTime, setRemainingTime] = useState(50);
     const [ticking, setTicking] = useState(true);
 
     const tickingRef = useRef(ticking);
     const timeRef = useRef(remainingTime);
     const gameRef = useRef(game);
+    const mutedRef = useRef(muted);
 
     timeRef.current = remainingTime;
     tickingRef.current = ticking;
     gameRef.current = game;
+    mutedRef.current = muted;
+
+
+    const [playClock, { isPlaying }] = useSound(
+        clockSfx,
+        { volume: 0.15 }
+      );
+
+    const clockRef = useRef(playClock);
+    clockRef.current = playClock;
+
+    const isPlayingRef = useRef(isPlaying);
+    isPlayingRef.current = isPlayingRef;
 
     const checkRemainingTime = () => {
         if (timeRef.current <= 0) {
@@ -27,7 +43,9 @@ export function Timer({ endGame, game }) {
 
             setRemainingTime(remainingTime => remainingTime - 1)
             checkRemainingTime();
-
+            if (!mutedRef.current) {
+                clockRef.current();
+            }
             if (!tickingRef.current) {
                 clearInterval(interval)
             }

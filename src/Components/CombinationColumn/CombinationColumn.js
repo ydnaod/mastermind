@@ -9,14 +9,14 @@ import useSound from 'use-sound';
 import Click2Sfx from '../../sfx/Click2.mp3'
 import Click1Sfx from '../../sfx/Click1.mp3'
 
-export function CombinationColumn({ colIndex, setValueFromColumn, shuffle, handleShuffleEnd }) {
+export function CombinationColumn({ colIndex, setValueFromColumn, shuffle, handleShuffleEnd, muted }) {
 
   const [[index, dir], setIndex] = useState([0, 0]);
 
   const handleIncrease = () => {
     const tempArray = [(index + 1) % PossibleNumbers.length, 1];
     setIndex(tempArray);
-    playClick1();
+    !muted && playClick1();
   }
 
 
@@ -36,7 +36,7 @@ export function CombinationColumn({ colIndex, setValueFromColumn, shuffle, handl
     } else {
       setIndex([index - 1, -1]);
     }
-    playClick2();
+    !muted && playClick2();
   }
 
   const variants = {
@@ -72,7 +72,7 @@ export function CombinationColumn({ colIndex, setValueFromColumn, shuffle, handl
       await timeout(randomInterval)
       tempArray = [(index + randomNumber) % PossibleNumbers.length, 1];
       setIndex(tempArray);
-      playClick1();
+      !muted && playClick1();
     endShuffle();
   }
 

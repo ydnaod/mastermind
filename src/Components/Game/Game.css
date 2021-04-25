@@ -12,6 +12,8 @@
 .dashboard {
     width: 65%;
     height: 80%;
+    display: flex;
+    flex-direction: column;
 }
 
 h4 {
@@ -37,16 +39,20 @@ h4 {
     display: none;
   }
 
-  .newGame {
-      width: 100%;
+  .configButton {
       display: flex;
       justify-content: center;
       align-items: center;
   }
 
   #newGameButton {
-      width: 20%;
+      width: 40%;
       margin-top: 0;
+  }
+
+  #switchModeButton {
+    width: 70%;
+    margin-top: 0;
   }
 
   .button:hover {
@@ -61,5 +67,18 @@ h4 {
 
 #subtitle {
     text-align: center;
+}
+
+#muteButton {
+    max-height: 20px;
+    position: absolute;
+    left: 10%;
+    top: 11%;
+}
+
+.configButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
   

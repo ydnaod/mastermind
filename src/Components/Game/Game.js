@@ -5,6 +5,11 @@ import { GuessTracker } from '../GuessTracker/GuessTracker'
 import { Hint } from '../Hint/Hint'
 import { motion } from 'framer-motion'
 import { Timer } from '../Timer/Timer'
+import SoundOnButton from '../../images/SoundOnButton.png'
+import MuteButton from '../../images/MuteButton.png'
+import useSound from 'use-sound';
+import Click3Sfx from '../../sfx/Click3.mp3'
+
 
 export function Game() {
 
@@ -14,9 +19,16 @@ export function Game() {
     const [game, setGame] = useState(false);
     const [loading, setLoading] = useState(true);
     const [shuffle, setShuffle] = useState(false);
+    const [muted, setMuted] = useState(false);
+    const [classicMode, setClassicMode] = useState(false);
 
     const historyRef = useRef(history);
     historyRef.current = history;
+
+    const [playClick3] = useSound(
+        Click3Sfx,
+        { volume: 0.25 }
+    );
 
     const generateCode = async () => {
         if (!game && loading) {
@@ -87,6 +99,26 @@ export function Game() {
         setGuesses(() => 10);
     }
 
+    const handleMuteToggle = () => {
+        if (muted) {
+            playClick3();
+            setMuted(() => false)
+        } else {
+            setMuted(() => true)
+        }
+    }
+
+    const handleModeToggle = () => {
+        if (classicMode) {
+            !muted && playClick3();
+            setClassicMode(() => false)
+            createNewGame();
+        } else {
+            setClassicMode(() => true)
+            createNewGame();
+        }
+    }
+
     useEffect(() => {
         generateCode();
         checkGuessesRemaining(guesses);
@@ -97,10 +129,12 @@ export function Game() {
             <motion.div className="dashboard"
                 animate={{ y: 0 }}
                 initial={{ y: 50 }}>
+
                 <div className="title">
                     <h1>Mastermind</h1>
                     <h4 id={"subtitle"}>Can you crack the code?</h4>
                 </div>
+
                 <motion.div className="vault"
                     animate={{ y: 0 }}
                     initial={{ y: 50 }}>
@@ -111,7 +145,9 @@ export function Game() {
                         game={game}
                         loading={loading}
                         shuffle={shuffle}
-                        handleShuffleEnd={handleShuffleEnd} />
+                        handleShuffleEnd={handleShuffleEnd}
+                        muted={muted}
+                        classicMode={classicMode} />
                 </motion.div>
 
                 <motion.div className="guessTracker"
@@ -119,25 +155,52 @@ export function Game() {
                     initial={{ y: 50 }}>
                     <GuessTracker guesses={guesses} />
                 </motion.div>
+
                 <motion.div className="timer"
                     animate={{ y: 0 }}
                     initial={{ y: 50 }}>
                     <div className="remainingTime">
-                        {loading ? <h3>Loading</h3> : <Timer game={game} endGame={endGame} />}
+                        {loading ? <h3>Loading</h3> : <Timer game={game} endGame={endGame} muted={muted} />}
                     </div>
                 </motion.div>
-                <div className="newGame">
-                    <motion.div whileTap={{ scale: .9 }}
-                        whileHover={{ scale: 1.1 }}
-                        animate={{ scale: 1 }}
-                        initial={{ scale: .3 }}
-                        class="button"
-                        id="newGameButton"
-                        onClick={createNewGame}>
-                        New Game
-                    </motion.div>
+
+                <div className="configButtons">
+                    <div className="configButton">
+                        <motion.div whileTap={{ scale: .9 }}
+                            whileHover={{ scale: 1.1 }}
+                            animate={{ scale: 1 }}
+                            initial={{ scale: .3 }}
+                            class="button"
+                            id="newGameButton"
+                            onClick={createNewGame}>
+                            New Game
+                        </motion.div>
+                    </div>
+                    <div className="configButton">
+                        <motion.div whileTap={{ scale: .9 }}
+                            whileHover={{ scale: 1.1 }}
+                            animate={{ scale: 1 }}
+                            initial={{ scale: .3 }}
+                            class="button"
+                            id="switchModeButton"
+                            onClick={handleModeToggle}>
+                            Switch to {classicMode ? "Hard Mode" : "Classic Mode"}
+                        </motion.div>
+                    </div>
                 </div>
+
+                {
+                    loading ? '' : <motion.img onClick={() => handleMuteToggle()}
+                        id="muteButton"
+                        src={muted ? MuteButton : SoundOnButton}
+                        whileTap={{ scale: .9 }}
+                        whileHover={{ scale: 1.1 }}
+                        animate={{ y: 0 }}
+                        initial={{ y: 50 }} />
+                }
+
             </motion.div>
+
             <motion.div className="history"
                 animate={{ y: 0 }}
                 initial={{ y: 50 }}>
@@ -145,6 +208,7 @@ export function Game() {
                     return <Hint sentence={sentence} key={index} />
                 })}
             </motion.div>
+
         </Fragment>
     );
 }
