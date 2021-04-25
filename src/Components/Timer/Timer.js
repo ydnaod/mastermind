@@ -5,7 +5,7 @@ import clockSfx from '../../sfx/Tick1.mp3'
 
 export function Timer({ endGame, game, muted }) {
 
-    const [remainingTime, setRemainingTime] = useState(50);
+    const [remainingTime, setRemainingTime] = useState(100);
     const [ticking, setTicking] = useState(true);
 
     const tickingRef = useRef(ticking);
