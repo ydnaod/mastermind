@@ -4,7 +4,7 @@ import { Vault } from '../Vault/Vault';
 import { GuessTracker } from '../GuessTracker/GuessTracker'
 import { Hint } from '../Hint/Hint'
 import { motion } from 'framer-motion'
-import {Timer} from '../Timer/Timer'
+import { Timer } from '../Timer/Timer'
 
 export function Game() {
 
@@ -54,7 +54,7 @@ export function Game() {
 
     const endGame = (extraInfo = '') => {
         setGame(() => false)
-        const tempArray = secretCode.join("")
+        const tempArray = secretCode?.join("")
         addToHistory(`Game over${extraInfo}! The code was ${tempArray}`)
     }
 
@@ -108,7 +108,7 @@ export function Game() {
                         game={game}
                         loading={loading}
                         shuffle={shuffle}
-                        handleShuffleEnd={handleShuffleEnd}/>
+                        handleShuffleEnd={handleShuffleEnd} />
                 </motion.div>
 
                 <motion.div className="guessTracker"
@@ -119,7 +119,9 @@ export function Game() {
                 <motion.div className="timer"
                     animate={{ y: 0 }}
                     initial={{ y: 50 }}>
-                    <Timer endGame={endGame}/>
+                    <div className="remainingTime">
+                        {loading ? <h3>Loading</h3> : <Timer endGame={endGame} />}
+                    </div>
                 </motion.div>
                 <div className="newGame">
                     <motion.div whileTap={{ scale: .9 }}

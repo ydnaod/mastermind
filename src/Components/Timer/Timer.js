@@ -3,13 +3,15 @@ import './Timer.css'
 
 export function Timer({ endGame }) {
 
-    const [remainingTime, setRemainingTime] = useState(10);
+    const [remainingTime, setRemainingTime] = useState(60);
     const [ticking, setTicking] = useState(true);
+
+    const tickingRef = useRef(ticking);
     const timeRef = useRef(remainingTime);
     timeRef.current = remainingTime;
+    tickingRef.current = ticking;
 
     const checkRemainingTime = () => {
-        console.log(remainingTime)
         if (timeRef.current <= 0) {
             setTicking(() => false);
             endGame(` - You ran out of time`);
@@ -19,11 +21,9 @@ export function Timer({ endGame }) {
     useEffect(() => {
         const interval = setInterval(() => {
             setRemainingTime(remainingTime => remainingTime - 1)
-            console.log(timeRef.current)
             checkRemainingTime();
-            if (!ticking) {
+            if (!tickingRef.current) {
                 clearInterval(interval)
-                console.log('uh')
             }
         }, 1000);
         return () => clearInterval(interval);
@@ -31,7 +31,7 @@ export function Timer({ endGame }) {
 
     return (
         <Fragment>
-            <h3>{remainingTime}</h3>
+            <h3 id={remainingTime}>Time Remaining: {remainingTime}</h3>
         </Fragment>
     );
 }
