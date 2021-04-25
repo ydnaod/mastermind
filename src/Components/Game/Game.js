@@ -4,6 +4,7 @@ import { Vault } from '../Vault/Vault';
 import { GuessTracker } from '../GuessTracker/GuessTracker'
 import { Hint } from '../Hint/Hint'
 import { motion } from 'framer-motion'
+import {Timer} from '../Timer/Timer'
 
 export function Game() {
 
@@ -51,10 +52,10 @@ export function Game() {
         }
     }
 
-    const endGame = () => {
+    const endGame = (extraInfo = '') => {
         setGame(() => false)
         const tempArray = secretCode.join("")
-        addToHistory("Game over! The code was " + tempArray)
+        addToHistory(`Game over${extraInfo}! The code was ${tempArray}`)
     }
 
     const checkGuessesRemaining = (guessesRemaining) => {
@@ -114,6 +115,11 @@ export function Game() {
                     animate={{ y: 0 }}
                     initial={{ y: 50 }}>
                     <GuessTracker guesses={guesses} />
+                </motion.div>
+                <motion.div className="timer"
+                    animate={{ y: 0 }}
+                    initial={{ y: 50 }}>
+                    <Timer endGame={endGame}/>
                 </motion.div>
                 <div className="newGame">
                     <motion.div whileTap={{ scale: .9 }}

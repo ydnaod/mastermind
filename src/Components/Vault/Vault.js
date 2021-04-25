@@ -60,12 +60,13 @@ export function Vault({ secretCode, addToHistory, decrementGuesses, endGame, gam
 
     const checkIfNumbersAreInPlace = () => {
         const tempArray = [col0, col1, col2, col3];
+        let counter = 0;
         for (let i = 0; i < secretCode.length; i++) {
             if (secretCode[i] === tempArray[i]) {
-                return true
+                counter ++;
             }
         }
-        return false
+        return counter
     }
 
     const checkIfAnyNumbersAreCorrect = () => {
