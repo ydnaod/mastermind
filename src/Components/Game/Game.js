@@ -19,7 +19,7 @@ export function Game() {
     const [game, setGame] = useState(false);
     const [loading, setLoading] = useState(true);
     const [shuffle, setShuffle] = useState(false);
-    const [muted, setMuted] = useState(false);
+    const [muted, setMuted] = useState(true);
     const [classicMode, setClassicMode] = useState(false);
 
     const historyRef = useRef(history);
