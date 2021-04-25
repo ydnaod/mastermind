@@ -29,27 +29,48 @@ export function Vault({ secretCode, addToHistory, decrementGuesses, endGame, gam
 
     const submitGuess = () => {
         if (!game) return;
+        const classic = true;
         if (decrementGuesses()) {
             const tempArray = [col0, col1, col2, col3];
             const result = tempArray.join("");
-            if (checkVictory()) {
-                addToHistory(`You guessed: ${result}. You cracked the code and opened the vault!`)
+            let resultString = `You guessed: ${result}. `;
+            if (checkVictory(tempArray)) {
+                resultString += `You cracked the code and opened the vault!`;
+                addToHistory(resultString)
                 playUnlock();
-            } else if (checkIfNumbersAreInPlace()) {
-                addToHistory(`You guessed: ${result}. A number is correct and is in the right place.`)
+            } else if (classic && checkIfAnyNumbersAreCorrect(tempArray) > 0) {
+                const correctButNotInPlace = checkIfAnyNumbersAreCorrectOrInPlace(tempArray);
+                const correctAndInPlace = checkIfNumbersAreInPlace(tempArray);
+                if (correctButNotInPlace == 1) {
+                    resultString += `${correctButNotInPlace} number is correct. `;
+                } else if (correctButNotInPlace > 1) {
+                    resultString += `${correctButNotInPlace} numbers are correct. `;
+                }
+                if (correctAndInPlace == 1) {
+                    resultString += `${correctAndInPlace} number is correct and in the right place. `;
+                } else if (correctAndInPlace > 1) {
+                    resultString += `${correctAndInPlace} numbers are correct and in the right place. `;
+                }
+                addToHistory(resultString)
                 playActive()
-            } else if (checkIfAnyNumbersAreCorrect()) {
-                addToHistory(`You guessed: ${result}. A number is correct.`)
+            } else if (checkIfNumbersAreInPlace(tempArray) > 0) {
+                resultString += `A number is correct and is in the right place.`;
+                addToHistory(resultString)
+                playActive()
+            } else if (checkIfAnyNumbersAreCorrect(tempArray) > 0) {
+                resultString += `A number is correct.`;
+                addToHistory(resultString)
                 playActive()
             } else {
-                addToHistory(`You guessed: ${result}. No numbers are correct.`)
+                resultString += `No numbers are correct.`;
+                addToHistory(resultString)
                 playActive()
             }
         }
     }
 
-    const checkVictory = () => {
-        const cloneArray = JSON.stringify([col0, col1, col2, col3]);
+    const checkVictory = (codeArray) => {
+        const cloneArray = JSON.stringify(codeArray);
         const cloneSecret = JSON.stringify(secretCode);
         if (cloneSecret === cloneArray) {
             endGame();
@@ -58,20 +79,25 @@ export function Vault({ secretCode, addToHistory, decrementGuesses, endGame, gam
         return false;
     }
 
-    const checkIfNumbersAreInPlace = () => {
-        const tempArray = [col0, col1, col2, col3];
+    const checkIfAnyNumbersAreCorrectOrInPlace = (codeArray) => {
+        const inPlaceCounter = checkIfNumbersAreInPlace(codeArray);
+        const totalCorrect = checkIfAnyNumbersAreCorrect(codeArray);
+        return totalCorrect - inPlaceCounter;
+    }
+
+    const checkIfNumbersAreInPlace = (codeArray) => {
         let counter = 0;
         for (let i = 0; i < secretCode.length; i++) {
-            if (secretCode[i] === tempArray[i]) {
+            if (secretCode[i] === codeArray[i]) {
                 counter ++;
             }
         }
         return counter
     }
 
-    const checkIfAnyNumbersAreCorrect = () => {
-        const tempArray = [col0, col1, col2, col3];
+    const checkIfAnyNumbersAreCorrect = (codeArray) => {
         const dict = {};
+        let counter = 0;
         for (const number of secretCode) {
             if (!dict.hasOwnProperty(number)) {
                 dict[number] = 1;
@@ -80,11 +106,12 @@ export function Vault({ secretCode, addToHistory, decrementGuesses, endGame, gam
             }
         }
         for (let i = 0; i < secretCode.length; i++) {
-            if (dict.hasOwnProperty(tempArray[i])) {
-                return true
+            if (dict.hasOwnProperty(codeArray[i]) && dict[codeArray[i]] > 0) {
+                dict[codeArray[i]]--;
+                counter ++;
             }
         }
-        return false
+        return counter
     }
 
     return (

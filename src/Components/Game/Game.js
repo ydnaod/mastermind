@@ -1,5 +1,5 @@
 import './Game.css';
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, Fragment, useRef } from 'react';
 import { Vault } from '../Vault/Vault';
 import { GuessTracker } from '../GuessTracker/GuessTracker'
 import { Hint } from '../Hint/Hint'
@@ -14,6 +14,9 @@ export function Game() {
     const [game, setGame] = useState(false);
     const [loading, setLoading] = useState(true);
     const [shuffle, setShuffle] = useState(false);
+
+    const historyRef = useRef(history);
+    historyRef.current = history;
 
     const generateCode = async () => {
         if (!game && loading) {
@@ -68,7 +71,7 @@ export function Game() {
     }
 
     const addToHistory = (message) => {
-        const tempArray = history;
+        const tempArray = historyRef.current;
         setHistory(() => [...tempArray, message]);
     }
 
@@ -96,7 +99,7 @@ export function Game() {
                 initial={{ y: 50 }}>
                 <div className="title">
                     <h1>Mastermind</h1>
-                    <h4>Can you crack the code?</h4>
+                    <h4 id={"subtitle"}>Can you crack the code?</h4>
                 </div>
                 <motion.div className="vault"
                     animate={{ y: 0 }}
@@ -120,7 +123,7 @@ export function Game() {
                     animate={{ y: 0 }}
                     initial={{ y: 50 }}>
                     <div className="remainingTime">
-                        {loading ? <h3>Loading</h3> : <Timer endGame={endGame} />}
+                        {loading ? <h3>Loading</h3> : <Timer game={game} endGame={endGame} />}
                     </div>
                 </motion.div>
                 <div className="newGame">
