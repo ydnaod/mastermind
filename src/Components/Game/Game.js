@@ -172,6 +172,7 @@ export function Game() {
                             initial={{ scale: .3 }}
                             class="button"
                             id="newGameButton"
+                            data-cy="NewGameButton"
                             onClick={createNewGame}>
                             New Game
                         </motion.div>
@@ -183,6 +184,7 @@ export function Game() {
                             initial={{ scale: .3 }}
                             class="button"
                             id="switchModeButton"
+                            data-cy="SwitchModeButton"
                             onClick={handleModeToggle}>
                             Switch to {classicMode ? "Hard Mode" : "Classic Mode"}
                         </motion.div>

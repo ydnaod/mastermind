@@ -87,8 +87,9 @@ export function CombinationColumn({ colIndex, setValueFromColumn, shuffle, handl
 
   return (
     <Fragment>
-      <div className="combinationColumn">
-        <UpArrow handleIncrease={handleIncrease} />
+      <div className="combinationColumn"
+        data-CombinationColumn={colIndex}>
+        <UpArrow handleIncrease={handleIncrease} colIndex={colIndex}/>
         <AnimatePresence initial={false} custom={dir}>
           <motion.div
             key={index}
@@ -106,7 +107,7 @@ export function CombinationColumn({ colIndex, setValueFromColumn, shuffle, handl
             <NumberToGuess colIndex={colIndex} setValueFromColumn={setValueFromColumn} numberToDisplay={PossibleNumbers[index]} />
           </motion.div>
         </AnimatePresence>
-        <DownArrow handleDecrease={handleDecrease} />
+        <DownArrow handleDecrease={handleDecrease} colIndex={colIndex}/>
       </div>
     </Fragment>
   );

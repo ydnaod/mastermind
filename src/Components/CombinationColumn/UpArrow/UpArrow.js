@@ -3,20 +3,21 @@ import React, { Fragment } from 'react';
 import UpArrowImage from '../../../images/UpArrow.png'
 import { motion } from 'framer-motion'
 
-export function UpArrow({handleIncrease}) {
+export function UpArrow({ handleIncrease, colIndex }) {
 
-    const handleClick = () => {
-        handleIncrease();
-    }
+  const handleClick = () => {
+    handleIncrease();
+  }
 
   return (
     <Fragment>
-      <motion.img whileTap={{scale:.9}}
-        whileHover={{scale: 1.1}}
+      <motion.img whileTap={{ scale: .9 }}
+        whileHover={{ scale: 1.1 }}
         alt="A clickable up arrow"
         src={UpArrowImage}
         className="upArrow"
-        onClick={handleClick}/>
+        onClick={handleClick}
+        data-UpArrow={colIndex} />
     </Fragment>
   );
 }

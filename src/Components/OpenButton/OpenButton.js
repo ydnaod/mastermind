@@ -15,7 +15,8 @@ function OpenButton({ submitGuess }) {
             animate={{scale:1}}
             initial={{scale:.3}}
             className="button"
-            onClick={handleClick}>
+            onClick={handleClick}
+            data-cy='OpenButton'>
                 Guess
             </motion.div>
         </Fragment>

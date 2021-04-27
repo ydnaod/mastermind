@@ -18,7 +18,7 @@ export function Vault({ secretCode,
         muted,
         classicMode }) {
 
-    const [[col0, col1, col2, col3], setCurrentCombination] = useState([0, 0, 0, 0])
+    const [currentCombination, setCurrentCombination] = useState([0, 0, 0, 0])
 
     const [playActive] = useSound(
         Click4Sfx,
@@ -31,7 +31,7 @@ export function Vault({ secretCode,
       );
 
     const setValueFromColumn = (index, value) => {
-        const tempArray = [col0, col1, col2, col3];
+        const tempArray = currentCombination;
         tempArray[index] = value;
         setCurrentCombination(tempArray)
     }
@@ -39,7 +39,7 @@ export function Vault({ secretCode,
     const submitGuess = () => {
         if (!game) return;
         if (decrementGuesses()) {
-            const tempArray = [col0, col1, col2, col3];
+            const tempArray = currentCombination;
             const result = tempArray.join("");
             let resultString = `You guessed: ${result}. `;
             if (checkVictory(tempArray)) {
@@ -124,7 +124,8 @@ export function Vault({ secretCode,
 
     return (
         <Fragment>
-            <div className="vaultContent">
+            <div className="vaultContent"
+                data-SecretCode={secretCode}>
                 <Combination setValueFromColumn={setValueFromColumn}
                     shuffle={shuffle}
                     handleShuffleEnd={handleShuffleEnd}
