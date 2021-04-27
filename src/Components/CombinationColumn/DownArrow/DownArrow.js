@@ -17,7 +17,7 @@ export function DownArrow({ handleDecrease, colIndex }) {
         src={DownArrowImage}
         className="downArrow"
         onClick={handleClick}
-        data-DownArrow={colIndex}/>
+        data-DownArrow={colIndex} />
     </Fragment>
   );
 }

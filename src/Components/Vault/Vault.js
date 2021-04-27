@@ -8,27 +8,27 @@ import unlockSfx from '../../sfx/unlock.mp3'
 import { motion } from 'framer-motion'
 
 export function Vault({ secretCode,
-        addToHistory,
-        decrementGuesses,
-        endGame,
-        game,
-        loading,
-        shuffle,
-        handleShuffleEnd,
-        muted,
-        classicMode }) {
+    addToHistory,
+    decrementGuesses,
+    endGame,
+    game,
+    loading,
+    shuffle,
+    handleShuffleEnd,
+    muted,
+    classicMode }) {
 
     const [currentCombination, setCurrentCombination] = useState([0, 0, 0, 0])
 
     const [playActive] = useSound(
         Click4Sfx,
         { volume: 0.25 }
-      );
+    );
 
-      const [playUnlock] = useSound(
+    const [playUnlock] = useSound(
         unlockSfx,
         { volume: 0.25 }
-      );
+    );
 
     const setValueFromColumn = (index, value) => {
         const tempArray = currentCombination;
@@ -97,7 +97,7 @@ export function Vault({ secretCode,
         let counter = 0;
         for (let i = 0; i < secretCode.length; i++) {
             if (secretCode[i] === codeArray[i]) {
-                counter ++;
+                counter++;
             }
         }
         return counter
@@ -116,7 +116,7 @@ export function Vault({ secretCode,
         for (let i = 0; i < secretCode.length; i++) {
             if (dict.hasOwnProperty(codeArray[i]) && dict[codeArray[i]] > 0) {
                 dict[codeArray[i]]--;
-                counter ++;
+                counter++;
             }
         }
         return counter
@@ -129,11 +129,11 @@ export function Vault({ secretCode,
                 <Combination setValueFromColumn={setValueFromColumn}
                     shuffle={shuffle}
                     handleShuffleEnd={handleShuffleEnd}
-                    muted={muted}/>
+                    muted={muted} />
             </div>
-            {loading ? <motion.div animate={{scale:1}}
-                initial={{scale:.3}}
-                className="button">Loading</motion.div> : 
+            {loading ? <motion.div animate={{ scale: 1 }}
+                initial={{ scale: .3 }}
+                className="button">Loading</motion.div> :
                 <OpenButton submitGuess={submitGuess} />}
         </Fragment>
     );

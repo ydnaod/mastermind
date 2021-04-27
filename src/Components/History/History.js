@@ -9,7 +9,7 @@ export function History({ history }) {
 
     return (
         <Fragment>
-            {history.map((sentence,index) => {
+            {history.map((sentence, index) => {
                 return <h1 key={index}>{sentence}</h1>
             })}
         </Fragment>

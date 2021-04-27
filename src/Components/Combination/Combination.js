@@ -10,22 +10,22 @@ export function Combination({ setValueFromColumn, shuffle, handleShuffleEnd, mut
                     colIndex={0}
                     shuffle={shuffle}
                     handleShuffleEnd={handleShuffleEnd}
-                    muted={muted}/>
+                    muted={muted} />
                 <CombinationColumn setValueFromColumn={setValueFromColumn}
                     colIndex={1}
                     shuffle={shuffle}
                     handleShuffleEnd={handleShuffleEnd}
-                    muted={muted}/>
+                    muted={muted} />
                 <CombinationColumn setValueFromColumn={setValueFromColumn}
                     colIndex={2}
                     shuffle={shuffle}
                     handleShuffleEnd={handleShuffleEnd}
-                    muted={muted}/>
+                    muted={muted} />
                 <CombinationColumn setValueFromColumn={setValueFromColumn}
                     colIndex={3}
                     shuffle={shuffle}
                     handleShuffleEnd={handleShuffleEnd}
-                    muted={muted}/>
+                    muted={muted} />
             </div>
         </Fragment>
     );

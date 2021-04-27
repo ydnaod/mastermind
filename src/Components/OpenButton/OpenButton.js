@@ -10,13 +10,13 @@ function OpenButton({ submitGuess }) {
 
     return (
         <Fragment>
-            <motion.div whileTap={{scale:.9}}
-            whileHover={{scale:1.1}}
-            animate={{scale:1}}
-            initial={{scale:.3}}
-            className="button"
-            onClick={handleClick}
-            data-cy='OpenButton'>
+            <motion.div whileTap={{ scale: .9 }}
+                whileHover={{ scale: 1.1 }}
+                animate={{ scale: 1 }}
+                initial={{ scale: .3 }}
+                className="button"
+                onClick={handleClick}
+                data-cy='OpenButton'>
                 Guess
             </motion.div>
         </Fragment>

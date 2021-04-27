@@ -22,7 +22,7 @@ export function Timer({ endGame, game, muted }) {
     const [playClock, { isPlaying }] = useSound(
         clockSfx,
         { volume: 0.15 }
-      );
+    );
 
     const clockRef = useRef(playClock);
     clockRef.current = playClock;
@@ -34,7 +34,7 @@ export function Timer({ endGame, game, muted }) {
         if (timeRef.current <= 0) {
             setTicking(() => false);
             endGame(` - You ran out of time`);
-        } 
+        }
     }
 
     useEffect(() => {
