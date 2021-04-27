@@ -18,7 +18,7 @@ In the project directory, you can run:
 
 ### `npm start`
 
-Runs the game in the development mode.\
+Runs the game in development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### `npx cypress run`
@@ -59,7 +59,7 @@ My first goal was to build the base game with animations and sounds, then implem
     - Timer
     - History
 
-There are a couple smaller components that are rendered in Game that haven't been broken up into Components (New Game Button, Toggle Game Mode Button). Building out the base game was pretty straightforward. I had to store the secret code, the current combination, and all the logic to check the codes against each other in the Vault component, which means I also had to pass setter methods as props all the way down to the Up and Down arrows. Game state such as loading, game (boolean to keep track of whether or not the game was over), guesses remaining, and history were all stored in Game. I initially had created a History component, which rendered an array of hints to theuser, but I realized it was an unnecessary middle man. However, it would make the Game render section of the code base more readable.
+There are a couple smaller components that are rendered in Game that haven't been broken up into Components (New Game Button, Toggle Game Mode Button). Building out the base game was pretty straightforward. I had to store the secret code, the current combination, and all the logic to check the codes against each other in the Vault component, which means I also had to pass setter methods as props all the way down to the Up and Down arrows. Game state such as loading, game (boolean to keep track of whether or not the game was over), guesses remaining, and history were all stored in Game. I initially had created a History component, which rendered an array of hints to the user, but I realized it was an unnecessary middle man. However, it would make the Game render section of the code base more readable.
 
 # Extensions
 
@@ -79,7 +79,7 @@ After making the game according to the rules set in the coding challenge, I real
 
 As an attempt to dip my toes in, I added a new game button, which would shuffle the current combination as a visual indicator that a new game has started. The new game button was located in the Game component, which then needed to modify each Combination Column. I accomplished this by passing down a "shuffle" state from Game all the way down to Combination Column, which would shuffle the combinations if and only if the "shuffle" state was true. Seeing how complicated this little feature became made me realize that having an AI live in the Game component would just make the code base incomprehensible. 
 
-Another deterrent to building the AI was that 5 guess algorithm only worked for the classic version of the game, which gave more information for each guess, which lead me to the next extension of the game.
+Another deterrent to building the AI was that the 5 guess algorithm only worked for the classic version of the game, which gave more information for each guess, which led me to the next extension of the game.
 
 ## Classic Mode
 
