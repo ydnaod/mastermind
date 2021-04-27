@@ -1,6 +1,15 @@
-# Getting Started with Create React App
+# How to play
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Hosted
+I've hosted the project on netlify: https://andy-mastermind.netlify.app/ 
+
+## Running it locally
+
+1. Using your terminal, navigate to a directory where you want to clone the repo.\
+2. Run `'git clone https://github.com/ydnaod/mastermind.git'`.\
+3. Run `'npm install'`.\
+4. Run `'npm start'`.\
+5. This should run the game in your browser at 'http://localhost:3000/'.\
 
 ## Available Scripts
 
