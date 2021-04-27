@@ -7,7 +7,7 @@ I've hosted the project on netlify: https://andy-mastermind.netlify.app/
 
 1. Using your terminal, navigate to a directory where you want to clone the repo.
 2. Run `'git clone https://github.com/ydnaod/mastermind.git'`.
-3. Run `'cd mastermind'` to change into the correct directory.
+3. Run `'cd mastermind'` to change into the project directory.
 3. Run `'npm install'`.
 4. Run `'npm start'`.
 5. This should run the game in your browser at 'http://localhost:3000/'.
@@ -41,7 +41,7 @@ After that feel free to run the test command in the root directory.
 When I read the challenge, I had no prior experience with the game so I had no associations of the classic colored pegs.
 Instead I imagined someone trying to break into a vault with a 4 digit code, which brought me to the UI of the lock. The lock had
 arrows on the top and bottom of each value that would allow the user to change the number. I liked this because it also meant that
-the user couldn't just type in whatever they want with their guesses.
+the user couldn't just type in whatever they want with their guesses, which meant less error handling.
 
 I knew that I was going to use React so the first thing I did was sketch out the structure of the component tree on a piece of paper. I didn't think this project was going to need Redux since the base game is pretty simple. Without Redux I had to be very careful about where each piece of state was stored since React can only pass state down from parent to child components. Once I was pretty sure the structure would work, I started coding.
 
@@ -67,7 +67,7 @@ There are a couple smaller components that are rendered in Game that haven't bee
 
 The first feature I wanted to implement was animations and sounds. I had previously tried using an animation library designed for react, react-spring, with another project and failed so I thought this would be a good opportunity to conquer my past mistakes now that I have more experience... After 6 hours of trying to use the library, I decided to use a different animation library, framer-motion, which was easy and quick to implement. 
 
-The hardest animation to implement was the numbers animating up if the up arrow was clicked as the new number animates up from below. Because an element is leaving the DOM it requires a special wrapper that was conveniently provided by the framer-motion.
+The hardest animation to implement was the arrow click animation. The current number had to move in the direction of the arrow clicked upon unmounting and the new number animating in also had to move in that direction. Because an element is leaving the DOM it requires a special wrapper that was conveniently provided by the framer-motion.
 
 I used a library called 'use-sound' that was made to implement sound effects in react. I had a lock in my room that made the exact sounds I needed in the game. I went online searching for those sounds, and it took me 10 minutes to realize that I was looking for something I already had. I put my filmmaking skills to use and recorded and mixed various interactions with my lock to produce many of the sounds you hear while playing the game.
 
@@ -83,7 +83,7 @@ Another deterrent to building the AI was that the 5 guess algorithm only worked 
 
 ## Classic Mode
 
-The classic version of the game had 6 colors max and would tell players how many of their colors were correct and how many of their colors were correct and in the right place. So I added a "mode" state to the Game component and changed the Submit Guess logic in the Vault component accordingly. 
+The classic version of the game had 6 colors max and would tell players how many of their colors were correct and how many of their colors were correct and in the right place. So if the code was "blue blue red yellow" and you guessed "blue blue yellow red," it would tell you that you have 2 colors correct and in the right place and 2 colors correct. So I added a "mode" state to the Game component and changed the Submit Guess logic in the Vault component accordingly. 
 
 I had to refactor some of the methods involved in guess submission, since the original version of my game only needed to know if there was 1 correct or 1 in place. Now each method returns the number of numbers that are correct and the number of numbers that are in place. 
 
@@ -95,9 +95,9 @@ The timer was a little tricky to implement in React since state changes happen a
 
 ## Tests with Cypress
 
-Tests aren't really an extension in the sense that users don't interact with it, but I did end up learning a good bit about testing. I haven't written tests for any of my React projects so I felt this was a good opportunity to get some experience. I know about TDD, and I'll be honest - I wrote these tests last after already having developed the entire project. 
+Tests aren't really an extension in the sense that users don't interact with it, but I did end up learning a good bit about testing. I haven't written tests for any of my React projects so I felt this was a good opportunity to get some experience.
 
-I started writing some small unit tests using the built in testing library that comes with create-react-app, but I figured it might be better to write end to end tests now that I've already finished the project. Then I looked into cypress, which is an open-source testing framework. I was able to write some tests after reading through the documentation and following their instructions. The tests were pretty basic though. Just enough to test what's been rendered to the screen and that the buttons all have the effect that they're supposed to have. 
+I started writing some small unit tests using the built in testing library that comes with create-react-app, but I figured it might be better to write end to end tests now that I've already finished the project. Then I looked into cypress, which is an open-source testing framework. I was able to write some tests after reading through the documentation and following their instructions. The tests were basic though. Just enough to test what's been rendered to the screen and that the buttons all have the effect that they're supposed to have. 
 
 I was not able to write more complex tests such as a test for when the user guesses a code that's completely wrong. That meant that my test would need to have access to the secret code and then purposely guess a completely wrong code. There was a way for the test to access the secret code, but I didn't know how to store the variable other than the normal `const secretCode = cy.react(...`, which was strongly discouraged in the documentation. At this point, I decided that I would write tests for what I could write tests for, then save the documentation for later.
 
