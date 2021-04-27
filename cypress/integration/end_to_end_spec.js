@@ -1,12 +1,12 @@
 describe('renders columns that updates state when up and down arrows are clicked', () => {
 
     before(() => {
-        cy.visit('http://localhost:3000/');
+        cy.visit('https://andy-mastermind.netlify.app/');
         cy.waitForReact(1000, '#root');
     });
 
     it('renders the page from URL', () => {
-        cy.visit('http://localhost:3000/')
+        cy.visit('https://andy-mastermind.netlify.app/')
     })
 
     it('renders all four columns with zero initially', () => {

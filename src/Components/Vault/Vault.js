@@ -49,12 +49,12 @@ export function Vault({ secretCode,
             } else if (classicMode && checkIfAnyNumbersAreCorrect(tempArray) > 0) {
                 const correctButNotInPlace = checkIfAnyNumbersAreCorrectOrInPlace(tempArray);
                 const correctAndInPlace = checkIfNumbersAreInPlace(tempArray);
-                if (correctButNotInPlace == 1) {
+                if (correctButNotInPlace === 1) {
                     resultString += `${correctButNotInPlace} number is correct. `;
                 } else if (correctButNotInPlace > 1) {
                     resultString += `${correctButNotInPlace} numbers are correct. `;
                 }
-                if (correctAndInPlace == 1) {
+                if (correctAndInPlace === 1) {
                     resultString += `${correctAndInPlace} number is correct and in the right place. `;
                 } else if (correctAndInPlace > 1) {
                     resultString += `${correctAndInPlace} numbers are correct and in the right place. `;

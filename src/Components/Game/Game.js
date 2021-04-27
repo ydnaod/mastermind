@@ -122,6 +122,7 @@ export function Game() {
     useEffect(() => {
         generateCode();
         checkGuessesRemaining(guesses);
+        // eslint-disable-next-line
     }, [guesses, game, loading])
 
     return (

@@ -68,11 +68,11 @@ export function CombinationColumn({ colIndex, setValueFromColumn, shuffle, handl
     if (!shuffle) return;
     const randomNumber = Math.floor((Math.random() * 5) + 2);
     const randomInterval = Math.floor(Math.random() * 500);
-      let tempArray = [];
-      await timeout(randomInterval)
-      tempArray = [(index + randomNumber) % PossibleNumbers.length, 1];
-      setIndex(tempArray);
-      !muted && playClick1();
+    let tempArray = [];
+    await timeout(randomInterval)
+    tempArray = [(index + randomNumber) % PossibleNumbers.length, 1];
+    setIndex(tempArray);
+    !muted && playClick1();
     endShuffle();
   }
 
@@ -82,6 +82,7 @@ export function CombinationColumn({ colIndex, setValueFromColumn, shuffle, handl
 
   useEffect(() => {
     shuffleColumn();
+    // eslint-disable-next-line
   }, [shuffle])
 
 
@@ -89,7 +90,7 @@ export function CombinationColumn({ colIndex, setValueFromColumn, shuffle, handl
     <Fragment>
       <div className="combinationColumn"
         data-CombinationColumn={colIndex}>
-        <UpArrow handleIncrease={handleIncrease} colIndex={colIndex}/>
+        <UpArrow handleIncrease={handleIncrease} colIndex={colIndex} />
         <AnimatePresence initial={false} custom={dir}>
           <motion.div
             key={index}
@@ -107,7 +108,7 @@ export function CombinationColumn({ colIndex, setValueFromColumn, shuffle, handl
             <NumberToGuess colIndex={colIndex} setValueFromColumn={setValueFromColumn} numberToDisplay={PossibleNumbers[index]} />
           </motion.div>
         </AnimatePresence>
-        <DownArrow handleDecrease={handleDecrease} colIndex={colIndex}/>
+        <DownArrow handleDecrease={handleDecrease} colIndex={colIndex} />
       </div>
     </Fragment>
   );
