@@ -251,11 +251,11 @@ export function Game() {
                 })}
             </motion.div>
 
-            <motion.div className="scoreBoard"
+            {/* <motion.div className="scoreBoard"
                 animate={{ y: 0 }}
                 initial={{ y: 50 }}>
                 <ScoreBoard score={score}/>
-            </motion.div>
+            </motion.div> */}
 
         </Fragment>
     );
