@@ -3,9 +3,8 @@ import './Timer.css'
 import useSound from 'use-sound';
 import clockSfx from '../../sfx/Tick1.mp3'
 
-export function Timer({ endGame, game, muted }) {
+export function Timer({ endGame, game, muted, remainingTime, handleTimeChange }) {
 
-    const [remainingTime, setRemainingTime] = useState(100);
     const [ticking, setTicking] = useState(true);
 
     const tickingRef = useRef(ticking);
@@ -41,7 +40,7 @@ export function Timer({ endGame, game, muted }) {
         const interval = setInterval(() => {
             if (!gameRef.current) setTicking(() => false);
 
-            setRemainingTime(remainingTime => remainingTime - 1)
+            handleTimeChange();
             checkRemainingTime();
             if (!mutedRef.current) {
                 clockRef.current();

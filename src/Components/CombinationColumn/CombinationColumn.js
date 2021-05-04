@@ -66,11 +66,11 @@ export function CombinationColumn({ colIndex, setValueFromColumn, shuffle, handl
 
   const shuffleColumn = async () => {
     if (!shuffle) return;
-    const randomNumber = Math.floor((Math.random() * 5) + 2);
+    // const randomNumber = Math.floor((Math.random() * 5) + 2);
     const randomInterval = Math.floor(Math.random() * 500);
     let tempArray = [];
     await timeout(randomInterval)
-    tempArray = [(index + randomNumber) % PossibleNumbers.length, 1];
+    tempArray = [0, 1];
     setIndex(tempArray);
     !muted && playClick1();
     endShuffle();
